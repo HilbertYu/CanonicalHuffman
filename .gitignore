@@ -1,0 +1,15 @@
+*.o
+*.swp
+*.bak
+cscope.out
+tags
+CanonicalHuffman
+
+
+TIC
+cmp/
+decoded_data
+encode_data
+result_data
+tmp/
+probak/

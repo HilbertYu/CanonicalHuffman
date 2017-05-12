@@ -1,0 +1,44 @@
+###############################################################################
+# compiler setting
+###############################################################################
+CC      = gcc
+CFLAGS  = -g -Wall -DHF_DEBUG_TICTOC=1
+LIBS    = -lm
+INCPATH =
+DIR     = $(shell pwd)
+
+###############################################################################
+# source files setting
+###############################################################################
+C_SOURCES = main.c \
+			HuffmanEncoder.c \
+			HuffmanDecoder.c \
+			HyBitVector.c\
+			std_lib.c\
+			HuffmanBase.c\
+			HfQSort.c
+
+C_OBJS    = $(patsubst %.c,%.o,$(wildcard $(C_SOURCES)))
+OBJS      = $(C_OBJS)
+EXEC      = $(shell basename $(DIR))
+
+###############################################################################
+.PHONY : clean clean_all debug
+###############################################################################
+all: clean $(EXEC)
+
+%.o:%.c %.h
+	$(CC) -c $(CFLAGS) $(INCPATH) $< -o $@
+
+$(EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $(EXEC) $(LIBS)
+
+debug:
+	make -f ./Makefile.debug
+
+###############################################################################
+clean:
+	@rm -vfr $(OBJS)
+clean_all: clean
+	@rm -vfr $(EXEC)
+###############################################################################
